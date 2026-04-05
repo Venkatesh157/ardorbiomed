@@ -1,0 +1,259 @@
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --color-brand-green: #6fc54d;
+  --color-brand-accent: #064e3b;
+  --color-brand-dark: #0a1f0a;
+  --color-brand-text: #1a1a1a;
+  --color-brand-muted: #6b7280;
+  --color-brand-white: #ffffff;
+  --color-brand-whatsapp: #25d366;
+}
+
+:root {
+  --brand-green: #6fc54d;
+  --brand-accent: #064e3b;
+  --brand-dark: #0a1f0a;
+  --brand-text: #1a1a1a;
+  --brand-muted: #6b7280;
+  --brand-white: #ffffff;
+  --brand-whatsapp: #25d366;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--brand-text);
+  background-color: var(--brand-white);
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO — Multi-phase scroll-driven animation
+   Phase 1 (0–0.3): Slow zoom, glow fades in, chevron out
+   Phase 2 (0.3–0.7): Faster zoom, text drifts up + fades
+   Phase 3 (0.7–1.0): Max zoom + shift, text gone, dim overlay
+   ═══════════════════════════════════════════════════ */
+
+/* ── Load-in: staggered entrance on page load ── */
+@keyframes hero-slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-load-in {
+  animation: hero-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+.hero-load-in-subtitle {
+  animation: hero-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+.hero-load-in-ctas {
+  animation: hero-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+
+/* ── Background image: multi-phase zoom + drift ──
+   Phase 1 (0–0.3): scale 1.0 → 1.08
+   Phase 2 (0.3–0.7): scale 1.08 → 1.15
+   Phase 3 (0.7–1.0): scale 1.15 → 1.2, translateY 0 → -5%
+   Combined into continuous calc: scale = 1 + progress * 0.2, translateY = progress * -5% */
+.hero-bg-image,
+.hero-video {
+  transform:
+    scale(calc(1 + var(--scroll-progress, 0) * 0.2))
+    translateY(calc(var(--scroll-progress, 0) * -5%));
+  transition: transform 0.05s ease-out;
+  will-change: transform;
+}
+
+/* ── Green bioluminescent glow — pseudo-element on hero-inner ──
+   Fades in Phase 1, intensifies Phase 2, stays Phase 3 */
+.hero-inner::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(111, 197, 77, calc(var(--scroll-progress, 0) * 0.8)) 0%,
+    rgba(6, 78, 59, calc(var(--scroll-progress, 0) * 0.3)) 40%,
+    transparent 70%
+  );
+  filter: blur(calc(40px - var(--scroll-progress, 0) * 15px));
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: calc(var(--scroll-progress, 0) * 1.5);
+  transition: opacity 0.05s ease-out, filter 0.05s ease-out;
+}
+
+/* ── Dimming overlay — fades in during Phase 3 (progress > 0.7) ──
+   Uses clamp: starts at 0.7, reaches 0.3 opacity at 1.0 */
+.hero-dim-overlay {
+  background: rgba(0, 0, 0, calc(max(0, var(--scroll-progress, 0) - 0.7) * 1));
+  transition: background 0.05s ease-out;
+}
+
+/* ── Text readability gradient — desktop: L→R ── */
+.hero-text-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(10, 31, 10, 0.85) 0%,
+    rgba(10, 31, 10, 0.5) 40%,
+    transparent 70%
+  );
+}
+
+/* ── Text readability gradient — mobile: B→T ── */
+.hero-text-gradient-mobile {
+  background: linear-gradient(
+    to top,
+    rgba(10, 31, 10, 0.95) 0%,
+    rgba(10, 31, 10, 0.7) 40%,
+    transparent 100%
+  );
+}
+
+/* ── Headline: drifts up at 0.6x, fades starting Phase 2 ── */
+.hero-headline {
+  transform: translateY(calc(var(--scroll-progress, 0) * -80px));
+  opacity: calc(1 - var(--scroll-progress, 0) * 0.8);
+  transition: transform 0.05s ease-out, opacity 0.05s ease-out;
+  will-change: transform, opacity;
+}
+
+/* ── Subtitle: drifts up at 0.4x ── */
+.hero-subtitle {
+  transform: translateY(calc(var(--scroll-progress, 0) * -50px));
+  opacity: calc(1 - var(--scroll-progress, 0) * 0.7);
+  transition: transform 0.05s ease-out, opacity 0.05s ease-out;
+  will-change: transform, opacity;
+}
+
+/* ── CTAs: drifts up at 0.3x ── */
+.hero-ctas {
+  transform: translateY(calc(var(--scroll-progress, 0) * -35px));
+  opacity: calc(1 - var(--scroll-progress, 0) * 0.7);
+  transition: transform 0.05s ease-out, opacity 0.05s ease-out;
+  will-change: transform, opacity;
+}
+
+/* ── Scroll indicator: fades out fast ── */
+.scroll-indicator {
+  opacity: calc(1 - var(--scroll-progress, 0) * 3);
+  transition: opacity 0.05s ease-out;
+}
+
+/* ── Mobile: shift image to show coconut ── */
+@media (max-width: 767px) {
+  .hero-bg-image {
+    object-position: 60% center;
+  }
+}
+
+/* ── Reduced motion: everything static ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-load-in,
+  .hero-load-in-subtitle,
+  .hero-load-in-ctas {
+    animation: none;
+    opacity: 1;
+  }
+  .hero-bg-image {
+    transform: none;
+    transition: none;
+  }
+  .hero-inner::before {
+    display: none;
+  }
+  .hero-dim-overlay {
+    background: none;
+    transition: none;
+  }
+  .hero-headline,
+  .hero-subtitle,
+  .hero-ctas {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+  .scroll-indicator {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* Section reveal animations */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card stagger — children animate with increasing delay */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.revealed .stagger-item:nth-child(1) { transition-delay: 0ms; }
+.revealed .stagger-item:nth-child(2) { transition-delay: 100ms; }
+.revealed .stagger-item:nth-child(3) { transition-delay: 200ms; }
+.revealed .stagger-item:nth-child(4) { transition-delay: 300ms; }
+.revealed .stagger-item:nth-child(5) { transition-delay: 400ms; }
+.revealed .stagger-item:nth-child(6) { transition-delay: 500ms; }
+.revealed .stagger-item:nth-child(7) { transition-delay: 600ms; }
+.revealed .stagger-item:nth-child(8) { transition-delay: 700ms; }
+
+.revealed .stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal,
+  .stagger-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

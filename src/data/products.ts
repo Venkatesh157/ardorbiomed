@@ -1,0 +1,242 @@
+export type ProductCategory = 'woundcare' | 'cosmeceutical' | 'nutraceutical'
+export type ProductStatus = 'active' | 'coming-soon'
+
+export interface Product {
+  id: string
+  name: string
+  slug: string
+  category: ProductCategory
+  subBrand: string
+  price: number
+  mrp: number
+  discount: number
+  description: string
+  image: string
+  status: ProductStatus
+  isTrending: boolean
+  isBestseller: boolean
+  dispatchDays: number
+}
+
+export const PRODUCTS: Product[] = [
+  {
+    id: 'wc-001',
+    name: 'Bio-cellulose Wound Dressing',
+    slug: 'bio-cellulose-wound-dressing',
+    category: 'woundcare',
+    subBrand: 'Coco Heal',
+    price: 432.00,
+    mrp: 480.00,
+    discount: 10,
+    description: 'Advanced bio-cellulose wound dressing made from coconut water fermentation. Provides superior moisture management and promotes faster healing.',
+    image: '/images/products/Screenshot_2025-03-17_at_10_6MKA7S9.png',
+    status: 'active',
+    isTrending: true,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cs-001',
+    name: 'Moisturizing Skin Sanitizer',
+    slug: 'moisturizing-skin-sanitizer',
+    category: 'cosmeceutical',
+    subBrand: 'Cocoshield',
+    price: 112.50,
+    mrp: 125,
+    discount: 10,
+    description: 'Alcohol-free skin sanitizer with coconut-derived moisturizing agents. Cleanses without drying your skin.',
+    image: '/images/product_images/moisturizing-skin-sanitizer.png',
+    status: 'coming-soon',
+    isTrending: false,
+    isBestseller: false,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cs-002',
+    name: 'Vitalizing Moisturizer',
+    slug: 'vitalizing-moisturizer',
+    category: 'cosmeceutical',
+    subBrand: 'Cocoshield',
+    price: 112.50,
+    mrp: 125,
+    discount: 10,
+    description: 'Lightweight coconut-based moisturizer with lauric acid for deep hydration and antimicrobial protection.',
+    image: '/images/products/Screenshot_2025-03-17_at_9_S4ycwy4.png',
+    status: 'active',
+    isTrending: true,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cs-003',
+    name: 'Cleansing Bath Soap',
+    slug: 'cleansing-bath-soap',
+    category: 'cosmeceutical',
+    subBrand: 'Cocoshield',
+    price: 144,
+    mrp: 160,
+    discount: 10,
+    description: 'pH-optimized bath soap enriched with coconut derivatives for gentle cleansing and skin nourishment.',
+    image: '/images/products/CLEANSING-BATH-SOAP_1.png',
+    status: 'active',
+    isTrending: true,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cs-004',
+    name: 'Refreshing Deodorant',
+    slug: 'refreshing-deodorant',
+    category: 'cosmeceutical',
+    subBrand: 'Cocoshield',
+    price: 168.90,
+    mrp: 200,
+    discount: 15.55,
+    description: 'Natural coconut-derived deodorant with long-lasting freshness. Free from harmful aluminium compounds.',
+    image: '/images/product_images/refreshing-deodorant.png',
+    status: 'coming-soon',
+    isTrending: false,
+    isBestseller: false,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cs-005',
+    name: 'Soothing Baby Massage Oil',
+    slug: 'soothing-baby-massage-oil',
+    category: 'cosmeceutical',
+    subBrand: 'Cocoshield',
+    price: 354.90,
+    mrp: 378,
+    discount: 6.11,
+    description: 'Gentle baby massage oil with pure coconut extracts. Nourishes delicate skin while providing antimicrobial protection.',
+    image: '/images/product_images/soothing-baby-massage-oil.png',
+    status: 'coming-soon',
+    isTrending: false,
+    isBestseller: false,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cl-001',
+    name: 'Nata de Coco — Strawberry 300g',
+    slug: 'nata-de-coco-strawberry',
+    category: 'nutraceutical',
+    subBrand: 'Cocolife',
+    price: 249.50,
+    mrp: 499,
+    discount: 50,
+    description: 'Delicious strawberry-flavoured coconut jelly rich in dietary fiber. A healthy treat the whole family can enjoy.',
+    image: '/images/products/STRAWBERRY__nata_mockup_4AuN83K.png',
+    status: 'active',
+    isTrending: true,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cl-002',
+    name: 'Nata de Coco — Litchi 300g',
+    slug: 'nata-de-coco-litchi',
+    category: 'nutraceutical',
+    subBrand: 'Cocolife',
+    price: 249.50,
+    mrp: 499,
+    discount: 50,
+    description: 'Refreshing litchi-flavoured coconut jelly packed with dietary fiber. A naturally wholesome snack.',
+    image: '/images/product_images/nata-de-coco-litchi.png',
+    status: 'coming-soon',
+    isTrending: false,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cl-003',
+    name: 'Nata de Coco — Pineapple 300g',
+    slug: 'nata-de-coco-pineapple',
+    category: 'nutraceutical',
+    subBrand: 'Cocolife',
+    price: 249.50,
+    mrp: 499,
+    discount: 50,
+    description: 'Tropical pineapple-flavoured coconut jelly. High in fiber, low in calories — the perfect guilt-free snack.',
+    image: '/images/product_images/nata-de-coco-pineapple.png',
+    status: 'coming-soon',
+    isTrending: false,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cl-004',
+    name: 'Nata de Coco — Mango 300g',
+    slug: 'nata-de-coco-mango',
+    category: 'nutraceutical',
+    subBrand: 'Cocolife',
+    price: 249.50,
+    mrp: 499,
+    discount: 50,
+    description: 'Luscious mango-flavoured coconut jelly bursting with tropical goodness. A fibre-rich, naturally delicious snack.',
+    image: '/images/product_images/nata-de-coco-mango.png',
+    status: 'coming-soon',
+    isTrending: false,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cl-005',
+    name: 'Dietary Fiber Supplement',
+    slug: 'dietary-fiber-supplement',
+    category: 'nutraceutical',
+    subBrand: 'Cocolife',
+    price: 1209.55,
+    mrp: 1423,
+    discount: 15,
+    description: 'Premium coconut-derived dietary fiber supplement supporting digestive health and regularity.',
+    image: '/images/product_images/dietary-fiber-supplement.png',
+    status: 'coming-soon',
+    isTrending: false,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cl-006',
+    name: 'Monolaurin Supplement Capsules',
+    slug: 'monolaurin-supplement-capsules',
+    category: 'nutraceutical',
+    subBrand: 'Cocolife',
+    price: 1112.79,
+    mrp: 1423,
+    discount: 21.8,
+    description: 'Coconut-derived monolaurin capsules with powerful antimicrobial and immune-supporting properties.',
+    image: '/images/products/Monolaurin-Supplement-Capsules_1_GXwUY64.png',
+    status: 'active',
+    isTrending: true,
+    isBestseller: true,
+    dispatchDays: 2,
+  },
+  {
+    id: 'cl-007',
+    name: 'Nata de Coco 8mm — 500g',
+    slug: 'nata-de-coco-8mm-500g',
+    category: 'nutraceutical',
+    subBrand: 'Cocolife',
+    price: 280.01,
+    mrp: 375,
+    discount: 25.33,
+    description: 'Premium 8mm coconut jelly cubes — perfect for desserts, beverages, and healthy snacking.',
+    image: '/images/product_images/nata-de-coco-8mm-500g.png',
+    status: 'coming-soon',
+    isTrending: true,
+    isBestseller: false,
+    dispatchDays: 2,
+  },
+]
+
+export function getProductsByCategory(category: ProductCategory): Product[] {
+  return PRODUCTS.filter((p) => p.category === category)
+}
+
+export function getFeaturedProducts(): Product[] {
+  return PRODUCTS.filter((p) => p.isTrending)
+}
+
+export function getBestsellers(): Product[] {
+  return PRODUCTS.filter((p) => p.isBestseller)
+}
